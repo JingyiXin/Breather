@@ -13,7 +13,7 @@
 
 	"background":{
 		"scripts": ["background.js, Helper.js, popup.js, timer.js"]
-		"persistent": false,
+		"persistent": false
 	},
 	
 	"permissions":[
