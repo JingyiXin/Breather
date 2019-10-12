@@ -6,11 +6,10 @@
 	"description": "timed mindfulness breaks from browsing",
 	"default_locale": "en",
 	"browser_action":{
-
 	},
-	"default_title": "Breather"
+	"default_title": "Breather",
 	//insert kyra's html file for popup'
-	"default_popup": "popup.html"
+	"default_popup": "popup.html",
 
 	"background":{
 		"scripts": ["background.js, Helper.js, popup.js, timer.js"]
