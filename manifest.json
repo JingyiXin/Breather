@@ -1,6 +1,6 @@
 //extension information given to browser
 {
-	"manifest_version":2,
+	"manifest_version":1,
 	"name": "Breather",
 	"version": "0.1",
 	"description": "timed mindfulness breaks from browsing",
@@ -23,6 +23,7 @@
 		"default_popup": "popup.html",
 		"default_icon":{
 			"16": "leaf.jpg"
+			}
 	},
 		
 }
