@@ -1,9 +1,15 @@
+//counter variable taken from global var
 let counterElement = document.getElementById('counter');
+//whether switch is pressed taken from global var
 let switchButton = document.getElementById('switch');
+//adds CSS class
 let switchClasses = switchButton.classList;
+//creates var for time to wait
 let countdownInterval;
+//counter var
 let count;
 
+//method to convert seconds to minutes
 let secToMin = function(timeInSec) {
   let sec = timeInSec%60;
   let min = (timeInSec-sec)/60;
@@ -13,15 +19,16 @@ let secToMin = function(timeInSec) {
   return min + ':' + sec;
 }
 
-// This will get the next alarm time from storage,
-// calculate that time minus the current time,
-// convert to seconds, then set the popup to that time.
+/* Updates time elapsed:
+	This will get the next alarm time from storage,
+	calculate that time minus the current time,
+	convert to seconds, then set the popup to that time.
+*/
 let updateCountdown = function() {
   chrome.storage.local.get('nextAlarmTime', function(data) {
-    // This sort of prevents the race condition by choosing between
-    // 0 and the actual count. We basically want to prevent the popup
-    // from ever displaying a negative number.
+    //set count to right time, prevent a negative number.
     count = Math.max(0, Math.ceil((data.nextAlarmTime - Date.now())/1000));
+	//resets the HTML element to count, in minute units
     counterElement.innerHTML = secToMin(count);
   });
 };
@@ -29,12 +36,16 @@ let updateCountdown = function() {
 // Check if isPaused. If not,
 // Call the update countdown function immediately
 // Then update the countdown every 0.1s
+
+//see if it is paused
 chrome.storage.local.get('isPaused', function(data) {
   if (!data.isPaused) {
     updateCountdown();
     countdownInterval = setInterval(updateCountdown, 100);
     isNotPausedDisplay();
-  } else {
+  } 
+//if paused
+else {
     chrome.storage.local.get('pausedCount', function(data) {
       counterElement.innerHTML = secToMin(data.pausedCount);
     });
@@ -42,6 +53,7 @@ chrome.storage.local.get('isPaused', function(data) {
   }
 });
 
+//method to change status of if it is or is not paused
 let isNotPausedDisplay = function() {
   switchClasses.add('is-not-paused');
   switchClasses.remove('is-paused');
